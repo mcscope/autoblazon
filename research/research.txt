@@ -1,0 +1,130 @@
+# Heraldic language intro
+# http://www.coafus.org/language-of-heraldry
+
+# coat of arms DB
+# https://coadb.com/surnames/lloyd-arms.html
+
+https://en.wikipedia.org/wiki/Blazon
+
+"Heraldic language is most concise, and it is always minutely exact, definite, and explicit; all unnecessary words are omitted, and all repetitions are carefully avoided; and, at the same time, every detail is specified with absolute precision. The nomenclature is equally significant, and its aim is to combine definitive exactness with a brevity that is indeed laconic.[4]"
+
+"A given coat of arms may be drawn in many different ways, all considered equivalent and faithful to the blazon, just as the letter "A" may be printed in many different fonts while still being the same letter. For example, the shape of the escutcheon is almost always immaterial, with very limited exceptions (e.g., the coat of arms of Nunavut, for which a round shield is specified).
+"
+
+
+https://www.familyhistoryquickstart.com/family-coat-of-arms/
+"""
+Colors
+    Sable (black),
+     Gules (red),
+     Azure (blue),
+     Vert (green),
+ Purpure (purple)
+Metals -
+    Argent (silver/white),
+    Or (gold/yellow)
+
+
+
+
+Fess - a wide horizontal stripe dividing a field
+Chief - a wide stripe across the top of the field
+Bend - a diagonal stripe slanting from top left to bottom right
+Bend sinister - a diagonal stripe slanting from top right to bottom left
+Bar - a thick horizontal stripe
+Pale - a vertical stripe
+Chevron - an inverted "V"
+Saltire - a diagonal cross'
+
+With the growth of heraldry, charges of a more pictorial and symbolic nature were adopted, including birds, lions, boars, leaves, weapons, crescents, stars (called mullets), and scallops (escallops).  Practically any object, animate or inanimate, can be and has been used as a heraldic charge.
+
+
+Arms can be used to show marriage alliances, the holding of two or more lordships or the acquiring of important offices by the arms holder.  This is done by the practice or marshalling, which takes two forms.  Impaling is dividing a shield down the middle and having each side show the original coat of arms in its entirety.  Quartering is the division of a shield into two or more parts; an extreme example of this is the coat and crest of Lloyd of Stockton, which contains some 350 quarterings.
+
+
+
+"""
+colors = {
+# black
+"Sable":"ffffff",
+}
+
+simple blazons:
+"azure a bend or"
+
+"Sable a cross Or"
+
+
+
+Beauchamp - my family crest!
+
+"Gules a fess between six crosses crosslet or."
+
+https://www.houseofnames.com/beauchamp-family-crest
+https://www.houseofnames.com/Beacham-family-crest
+
+Hard blazons:
+Lloyd coat of arms - 350 quarterings
+https://coadb.com/surnames/lloyd-arms.html
+
+
+bunch of blazons
+1. Six lions. Glanville's Wootton (1), p. 97a.
+
+2. Quarterly: 1 and 4, ermine, on a fesse three lions, 2 and 3, a hawk and a chief. Hilton (1) p. 112a.
+
+3. Argent, an imperial eagle displayed gules. Marnhull (1), p. 151b.
+
+4. Three birds. Milton Abbas (1), p. 186a.
+
+5. A hart's head? caboshed, in chief two roundels. Milton Abbas (1), p. 186a.
+
+6. Per fesse argent and gules with a pale counterchanged, three chaplets. Milton Abbas (1), p. 188a.
+
+7. A leopard's head between five martlets. Milton Abbas (4), p. 193a.
+
+8. Sable, in a bordure engrailed, a scourge?, between three garbs or. Milton Abbas (4), p. 193a.
+
+9. Argent, on a cross sable between four choughs, four lions. Milton Abbas (4), p. 193b.
+
+10. Azure, a chevron between three garbs or. Milton Abbas (4), p. 193b.
+
+11. Quarterly: 1 and 4, a chevron between three birds, 2 and 3, a chevron charged with three birds. Piddletrenthide (16), p. 218b.
+
+12. Gules, a lion passant argent, impaling, azure, a chevron or. Puddletown (1), p. 225a.
+
+13. Azure, three martlets argent, in chief three roundels. Purse Caundle (2), p. 237b.
+
+14. Quarterly: 1 and 4, a bend cotised, 2, or, two lion's jambs issuing from the base, 3, three palets, on a chief three crescents. Sturminster Newton (65), p. 285a.
+
+15. A ship's hull. Tincleton (1), p. 287a. (fn. 1)
+
+16. Per fesse argent and sable (lozengy?), in chief three fleurs-de-lys. Tincleton (1), p. 287a. (fn. 1)
+
+17. Gules, on a fesse argent a mullet pierced between two pellets. Winterborne Kingston (3), p. 301b.
+
+18. Gules, above a chevron two lions or (lower part defaced). Winterborne Kingston (3), p. 301b.
+
+ A fesse between six roses. Bere Regis (1), p. 18.
+
+2. Sable, a fesse or between three cinquefoils (?) argent. Corfe Castle (1), p. 54.
+
+3. Ermine, a lion rampant crowned, impaling (?). Turners Puddle (1), p. 298.
+
+4. Ermine, a lion rampant, over all two barrulets. Winterborne Came (1), p. 383.
+
+¶5. Argent, two bars gules, in chief three mullets gules. Winterborne Came (1), p. 383.
+
+
+Azure, a bend or. A coat made famous by the medieval court case Scrope v. Grosvenor.
+
+
+Party per pale argent and vert, a tree eradicated counterchanged. Arms of Behnsdorf.
+
+Argent, an eagle displayed gules armed and wings charged with trefoils Or. Arms of Brandenburg.
+
+Quarterly 1st and 4th Sable a lion rampant on a canton Argent a cross Gules; 2nd and 3rd quarterly Argent and Gules in the 2nd and 3rd quarters a fret Or overall on a bend Sable three escallops of the first and as an augmentation in chief an inescutcheon, Argent a cross Gules and thereon an inescutcheon Azure, three fleurs-de-lis Or.
+
+
+List of hundreds of blazons!
+https://www.british-history.ac.uk/rchme/cambs/pp397-414
