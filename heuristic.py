@@ -32,8 +32,8 @@ with open("blazons/cambridge_blazons_only.txt") as cambridge_blazons:
                 missed.append(f"\t<missed> {line}")
 
 shuffle(missed)
-for l in missed[:40]:
-    print(l)
+# for l in missed:
+    # print(l)
 print(f"{success} / {total} : {success/total}")
 
 improvements = new_successes - old_successes

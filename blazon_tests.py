@@ -59,7 +59,7 @@ test_cases = [
     "Sable, a fesse ermine and in chief three crosses formy fitchy argent",
     "Three bears' heads erased and muzzled, a chief",
     "Barry wavy argent and azure",
-    " Argent, a bend azure, in chief an annulet gules", 
+    "Argent, a bend azure, in chief an annulet gules", 
     "Gules, a fesse of three lozenges between three lions' heads erased or",
     "A fesse between three crosses crosslet fitchy",
     "Quarterly per fesse indented argent and gules",
@@ -82,6 +82,10 @@ test_cases = [
     "Azure, three escallops argent, on a chief gules a fleur-de-lys between two mullets or",
     "Per fesse indented, in chief three mullets and in base a crescent",
     "Argent, a fesse indented gules and or and in chief three trefoils sable",
+    "Azure, ten estoiles or",
+    "Sable semy of cinquefoils, a lion argent",
+    "Azure flory, a lion argent",
+    "Sable, two stags combatant argent, collared with coronets and chained and attired or"
     # "Quarterly with a crescent for difference on the fesse point: 1 and 4, Argent, a fesse between six annulets gules; 2 and 3, Morrow",
     # "Quarterly per pale indented or and azure, with an eagle displayed or on the blue, over all on a bend azure a fret between two martlets or"
     # "Quarterly: 1 and 4, Gules, a saltire or surmounted by another vert, a crescent or for difference in chief"
@@ -90,5 +94,4 @@ test_cases = [
 
 for test in test_cases:
     tree = earley_parser.parse(test)
-    if "unknown" in tree.pretty():
-        print(tree.pretty())
+    print(tree.pretty())

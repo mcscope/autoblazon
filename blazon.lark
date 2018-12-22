@@ -1,11 +1,10 @@
 start: arms
 
-arms: lines 
-    | field 
+arms: field 
     | field "," _charge_group 
     | field _charge_group 
     | _charge_group
-field: tincture | lines
+field.4: tincture | lines
 _charge_group:  _charge_group AND _charge_group 
                 | _charge_group relation _charge_group 
                 | relation charge charge 
@@ -52,7 +51,7 @@ ERMINE: "Ermine"i // Stoat Fur design (black and white spots). 4 variations
 INFIX_FUR: "Ermined"i
 
 // Variations of the field provide a patterned background. Usually two colors
-variation: multipattern tincture AND tincture | tincture multipattern tincture | multipattern
+variation: multipattern tincture AND tincture | tincture multipattern tincture? | multipattern
 
 lines: "Quarterly"i ["of"i number] ":" (number (AND number)? "," arms ";"?)+ 
             | "Quarterly"? "Per"i ordinary_charge [tincture AND tincture]
@@ -66,7 +65,7 @@ lines: "Quarterly"i ["of"i number] ":" (number (AND number)? "," arms ";"?)+
 multipattern: PATTERN "of" number [ tincture AND tincture]
              | PATTERN 
              | PATTERN ordinary_attitude
-             | "Semy"i "of" charge        // repeating background image, like a myspace page
+             | tincture "Semy"i "of" charge        // repeating background image, like a myspace page
 
 PATTERN.3: "Barry"i       // Horizontal stripes.  .3 to avoid conflict Bendy/Bend conflict
         | "Paly"i       // Vertical stripes
@@ -96,12 +95,12 @@ BEAST:  "Lion"i | "Wolf"i | "Wolves"i | "Leopard"i | "Bear"i
         | "Bull"i | "Calf"i | "Calves"i 
         | "Buck"i | "Stag"i 
         | "Dog"i  | "Cat"i | "Greyhound"i | "Talbot"i
-        | "Ram"i | "Boar"i | "Goat"i | "Mule"i | "Pig"i | "Bacon Pig"i
+        | "Ram"i | "Boar"i | "Goat"i | "Mule"i | "Pig"i | "Bacon Pig"i | "Squirrel"i
         | "Unicorn"i | "Griffin"i
 BIRD: "Eagle"i | "Martlet"i | "Swan"i | "Raven"i | "Falcon"i | "Popinjay"i | "Cock"i | "Peacock"i | "Bird"i 
-| "Owl"i | "Hawk"i | "Stork"i | "Dove"i | "Pelican"i | "Moorcock"i
+| "Owl"i | "Hawk"i | "Stork"i | "Dove"i | "Pelican"i | "Moorcock"i | "Crow"i
 REPTILE: "Serpent"i | "Firedrake"i | "Salamander"i | "Wyvern"i
-FISH: "Herring"i | "Dolphin"i  
+FISH: "Herring"i | "Dolphin"i | "Whale"i 
       | "Barbel"i       // this is a fish with a mustache
 !attitude.3: "Rampant"i  // Standing on it's hind legs!
         | "Passant"i  // Walking, one upraised arm
@@ -124,6 +123,10 @@ FISH: "Herring"i | "Dolphin"i
         | "Reversed"i               // Upside down, like python logo 
         | "Inverted"i               // Upside down, seems to also be used
         | "jessant De Lys"i // with a Fleur de Lys issuing out of it 
+        | "Hauriant"i  // facing up!
+        | "Naiant"i    // swimming
+        | "Nowed"i    // snake twisted to form a knot
+        | "Embowed"i  // bent, like an arm or a dolphin
         | "Displayed"i    
         | "Pairs of"i
         | "for difference"i    // essentially a note that this feature distinguishes it from related crests    
@@ -133,9 +136,10 @@ FISH: "Herring"i | "Dolphin"i
         | accessory tincture?
         | general_attitude 
 
-!accessory:  "Crowned"i |  "Erased"i | "Collared"i    // Torn off, like demi but ragged    
+!accessory:  "Crowned"i | "Collared"i  | "Chained"i
+        | "Erased"i // Torn off, like demi but ragged    
         |  "Hilted"i | "Pommelled"i
-        | "Triple-towered"i | "Domed"i 
+        | "Triple-towered"i | "Domed"i | "Triple-turreted"i // for buidlings
         | "Tounges"i
         | "Claws"i
         | "Eyes"i
@@ -202,8 +206,9 @@ object.2: SHAPE | BUILDING | GEOGRAPHY | PLANT | OBJECT | KNOT "Knot"i
 SHAPE: "Escarbuncle"i            // radiating star shape
         | "Fasces"i              // bound rods, mayoral symbol. Root of "Fascism"
         | "Key"i                 // Skeleton Key - represents St. Peter and the Church
-        | "Crescent"i  | "Spearhead"i | "Cushion"i
-        | "Estoil"i  | "Estoiles"i   // Wiggly 6 pointed star
+        | "Crescent"i | "Cres-cent"i
+        | "Spearhead"i | "Cushion"i
+        | "Estoiles"i | "Estoil"i    // Wiggly 6 pointed star
         | "Mullet"i  | "Star"i   // 5 and 6 pointed stars
         | "Canton"i              // Square in upper left that says you are special
         | "Another"i             // Reference to a previous object
@@ -215,26 +220,34 @@ PLANT:   "Pomegranate"i | "Rose"i | "Thistle"i | "Acorn"i | "Oak Spring"i
        | "Fleur-de-lys"i  
        | "Garb"i // Sheaf of wheat
        | "Holly Leaves"i | "Leaves"i 
+       | "Lilies"i | "Lily"i
        | "Hanks of Cotton"i
-OBJECT:  "Crown"i
+       | "Oak sprig"i
+       | "Ears of Corn"i
+OBJECT:  "Crown"i | "Cronel"i
         | "Escallop"i          // Scallop Shell - represents the Santiago de Compostela pilgrimage 
-        | "Bell"i | "Harp"i | "Trumpet"i 
+        | "Bell"i | "Harp"i | "Trumpet"i  | "Bugle-horns"i
         | "Mallet"i | "Sword"i | "Battle-axes"i | "Pitchfork"i | "Gauntlet"i | "Helmet"i
         | "Pair Of Wings"i | "Wings"i
         | "Cup"i | "Pheon"i     // Pheon is an arrowhead
         | "Portcullis"i
         | "Shin-bone"i | "Woolsacks"i
         | "Knot"i | "Ostrich Feather"i | "Antler"i | "Wing"i // Animal parts!
+        | "Millrind"i | "Mill-rind"i  | "Rind"i // the handle to turn a mill 
         | "Maunch"i             // A woman's sleeve - like given as a favor at a tournament
         | "Mitre"i              // Bishop Stick
-        | "Escutcheon"i         // A shield - for recursive shielding
+        | "Chess-rook"i            
+        | "Miners' picks"i         
+        |"Quills Of Thread"i
+        |"Book"i                // These often have letters - tod
+        | "Escutcheon"i | "Scutcheon"i         // A shield - for recursive shielding
 
 KNOT: "Bourchier"i | "Bowen"i | "Cavendish"i | "Dacre"i | "Harrington"i | "Hastings"i | "Heneage"i | "Hinckaert"i | "Hungerford"i | "Lacy"i | "Medici"i | "Morvillier"i | "Ormonde"i | "Savoy"i | "Shakespeare"i | "Stafford"i | "Trafford"i | "Tristram"i | "Wake"i
 
 OBJECT_ATTITUDE: "Crossed"i | "Covered"i | "Impaling"i | "Pierced"i | "meeting in base"i | "Paleways"i
                 | "Open"i | "Closed"i | "Conjoined"i
 AND.3: "And"i               // The 2 indicates it's higher priority to avoid colision with "an"
-referenced_name.0: /[A-Z][a-zê]+/            // A reference to another coat of arms 
+referenced_name.1: /[A-Z][a-zê]+/            // A reference to another coat of arms 
                                             // Ex "France impaling England"
 arrangement: number AND number
             | number ","? number AND number
