@@ -1,9 +1,15 @@
-from lark import Lark
+from lark import Lark, exceptions
 from random import shuffle, seed
 import time
 seed(time.time())
 cyk_parser = Lark(open('blazon.lark'), parser="cyk")
 earley_parser = Lark(open('blazon.lark'), parser="earley")
+
+
+def on_success(blazon, tree):
+    global success, new_successes
+    success += 1
+    new_successes.add(blazon)
 
 success = 0
 total = 0
@@ -17,21 +23,16 @@ with open("blazons/cambridge_blazons_only.txt") as cambridge_blazons:
         total += 1
         try:
             ast = cyk_parser.parse(line)
-            success += 1
-            new_successes.add(line)
-            # print(line)
-        except:
+            on_success(line, ast)
+        except (exceptions.UnexpectedCharacters, exceptions.ParseError):
             try:
                 ast = earley_parser.parse(line)
-                success += 1
-                new_successes.add(line)
-                # print(line)
-            except:
-                # if len(line.split()) < 5:
+                on_success(line, ast)
+            except (exceptions.UnexpectedCharacters, exceptions.ParseError):
                 missed.append(f"\t<missed> {line}")
 
 shuffle(missed)
-for l in missed[:50]:
+for l in missed[:40]:
     print(l)
 print(f"{success} / {total} : {success/total}")
 

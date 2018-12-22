@@ -9,6 +9,7 @@ verify_ssl = true
 autoblazon = {path = ".",editable = true}
 ipython = "*"
 lark-parser = "*"
+pudb = "*"
 
 [requires]
 python_version = "3.7"

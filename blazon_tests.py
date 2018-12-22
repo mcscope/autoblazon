@@ -15,7 +15,7 @@ test_cases = [
     "Or, a fesse vair",
     "A bend sinister or",
     # plural charges
-    "Three Bends ermine",
+    "Three bends ermine",
     # charges IN charges
     "Five escallops in saltire",
     # AND clauses
@@ -46,6 +46,7 @@ test_cases = [
     "A cheveron between ten crosses crosslet",
     " Or, on a fesse between two cheverons sable three crosses crosslet or",
     "A fesse between three crosses crosslet fitchy",
+    # expanding vocaublary
     "On a fesse between three saltires three lions' heads erased",
     "Gules, a double-headed eagle between three fleurs-delys argent",
     " lion between three crosses formy",
@@ -62,6 +63,25 @@ test_cases = [
     "Gules, a fesse of three lozenges between three lions' heads erased or",
     "A fesse between three crosses crosslet fitchy",
     "Quarterly per fesse indented argent and gules",
+    # Proper names, here we care about case
+    "Beacham",
+    "Quarterly: 1, Lancaster; 2, Angoulême; 3, Guienne; 4, Butler quartering Rochfort; 5, Brotherton; 6, Warenne",
+    "Quarterly of six: 1, Luxemburg; 2, Baux; 3, Cyprus; 4, Orsini; 5, St",
+    "Per cheveron sable and ermine, in chief two boars' heads or",
+    "Azure, on a chief or three martlets gules",
+    "Gules, three cushions ermine",
+    "Or ermined sable, a lion sable collared argent, on a canton vert a garb or",
+
+    # subcase - crusily with cross aspects
+    "Azure crusily fitchy, two barbels erect addorsed or",
+    "Azure crusily of crosslets, three herrings argent",
+
+
+    "lion",
+    "A fesse between three voided lozenges",
+    "Azure, three escallops argent, on a chief gules a fleur-de-lys between two mullets or",
+    "Per fesse indented, in chief three mullets and in base a crescent",
+    "Argent, a fesse indented gules and or and in chief three trefoils sable",
     # "Quarterly with a crescent for difference on the fesse point: 1 and 4, Argent, a fesse between six annulets gules; 2 and 3, Morrow",
     # "Quarterly per pale indented or and azure, with an eagle displayed or on the blue, over all on a bend azure a fret between two martlets or"
     # "Quarterly: 1 and 4, Gules, a saltire or surmounted by another vert, a crescent or for difference in chief"
@@ -69,4 +89,6 @@ test_cases = [
 ]
 
 for test in test_cases:
-    print(earley_parser.parse(test).pretty()),
+    tree = earley_parser.parse(test)
+    if "unknown" in tree.pretty():
+        print(tree.pretty())

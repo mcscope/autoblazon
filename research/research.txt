@@ -135,5 +135,7 @@ http://mistholme.com/dictionary/serpent/
 Databases:
 https://heraldica.hypotheses.org/1767
 
+https://heraldry.sca.org/armory/bruce.html
+
 
 Python reference grammar! https://docs.python.org/3.8/reference/grammar.htmlgi

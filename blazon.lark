@@ -6,11 +6,19 @@ arms: lines
     | field _charge_group 
     | _charge_group
 field: tincture | lines
-_charge_group:  _charge_group AND charge 
+_charge_group:  _charge_group AND _charge_group 
                 | _charge_group relation _charge_group 
-                | "Between"i charge charge 
-                | "on" charge charge 
-                | charge+
+                | relation charge charge 
+                | charge
+
+
+relation: "Between"i | "Surmounted by"i | "Each with"i | AND "Over all"i | "in"i | "on"i
+        | "Each charged with"i | "charged with"i | "with"i | "all"i | "Quartering"i | "Holding"i
+charge: number? attitude* _charge_focus "s"? attitude*
+        | number attitude* _charge_focus "s"? attitude? arrangement 
+
+// This comes up for liness / lines
+ordinary_charge: number? attitude* ordinary "s"? attitude*
 
 tincture: METAL| COLOUR | STAIN | fur | variation 
     | "Counterchanged"i  // Split over a differently colored field with color contrasting to each side
@@ -26,34 +34,41 @@ COLOUR: "Azure"i      // Blue
 STAIN:   "Sanguine"i | "Murrey"i // Dark Red
         | "Tenné"i | "Tenny"i    // Tan/orange
 
-fur: ERMINE | VAIR | fur tincture AND tincture
+fur: ERMINE | vair | fur tincture AND tincture | tincture INFIX_FUR tincture
+    | tincture fur  // In this case (Azure cruisly fitchy) the second tincture is specificed later. 
 ERMINE: "Ermine"i // Stoat Fur design (black and white spots). 4 variations
     | "Ermines"i
     | "Erminois"i
     | "Pean"i
 
-VAIR: "Vairy"i | "Vair"i     // Blue and White alternating bell-shaped pattern
+!vair: "Vairy"i | "Vair"i     // Blue and White alternating bell-shaped pattern
     | "Plumeté"i | "Plumetty"i  // Feather shapes alternating
     | "Papelonné"i | "Papellony"i // Fan/scale shapes alternating
     | "Potent"i    // Tetris T's alternating
     | "Kürsch"i    // Fuzzy squirrel bellies (I am not making this up)
-    | "Crusily"i | "Billetty"i | "Bezanty"i // Covered with crosses, billets or cicles
+    | "Crusily"i CROSS_ATTITUDE*
+    | "Billetty"i | "Bezanty"i // Covered with crosses, billets or cicles
+
+INFIX_FUR: "Ermined"i
 
 // Variations of the field provide a patterned background. Usually two colors
 variation: multipattern tincture AND tincture | tincture multipattern tincture | multipattern
-multipattern: PATTERN "of" number [ tincture AND tincture]
-             | PATTERN 
-             | PATTERN ORDINARY_ATTITUDE
-             | "Semy"i "of" charge        // repeating background image, like a myspace page
-lines: "Quarterly"i ":" (number (AND number)? "," arms ";"?)+ 
-            |"Quarterly"? "Per"i ordinary_charge [tincture AND tincture]
+
+lines: "Quarterly"i ["of"i number] ":" (number (AND number)? "," arms ";"?)+ 
+            | "Quarterly"? "Per"i ordinary_charge [tincture AND tincture]
             | arms ", on a"i ordinary_charge arms
             | "on a"i ordinary_charge arms
             | arms "all"? "in"  ordinary_charge 
-            | arms ("and in" |", in" |"within") ordinary_charge arms
+            | arms ("and in" | ", in" | "within") ordinary_charge arms
             | arms "," ordinary_charge
+            | arms "Impaling"i arms
 
-PATTERN.2: "Barry"i       // Horizontal stripes.  .2 to avoid conflict Bendy/Bend conflict
+multipattern: PATTERN "of" number [ tincture AND tincture]
+             | PATTERN 
+             | PATTERN ordinary_attitude
+             | "Semy"i "of" charge        // repeating background image, like a myspace page
+
+PATTERN.3: "Barry"i       // Horizontal stripes.  .3 to avoid conflict Bendy/Bend conflict
         | "Paly"i       // Vertical stripes
         | "Bendy"i      // Diagonal stripes
         | "Chequy"i     // Checkerboard pattern
@@ -68,24 +83,27 @@ PATTERN.2: "Barry"i       // Horizontal stripes.  .2 to avoid conflict Bendy/Ben
         | "Billetty"i   // Covered in Billets
         | "Flory"i | "Counterflory"i  // Outlined with fleurs pointing in/out
 
-relation: "Between"i | "Surmounted by"i | "Each with"i | AND "Over all"i | "Each charged with"i | "charged with"i | "with"i | "all"
-charge: number? attitude? _charge_focus "s"? attitude? tincture? attitude?
-    | charge "in" charge | "on " charge charge 
 
-// This comes up for liness / lines
-ordinary_charge: number? attitude? ordinary "s"? attitude? tincture? attitude?
+_charge_focus: OBJECT_ATTITUDE? object | animal | ordinary | ordinary "of" charge 
+| referenced_name
 
-_charge_focus: OBJECT_ATTITUDE? object | animal | ordinary | ordinary "of" charge
 
-animal : "Man"i| "Men"i| BEAST | BIRD | REPTILE | FISH| animal "'s"? "s'"? "face" | animal "'s"? "s'"? "head"
+animal.3 : HUMAN | BEAST | BIRD | REPTILE | FISH| animal "'s"? "s'"? "face" | animal "'s"? "s'"? "head"
+HUMAN: "Man"i | "Men"i | "Old Man"i 
+        | "Moor"i | "Blackamoor"i       // pretty racist but they did fight these guys
 
-BEAST:  "Lion"i | "Wolf"i | "Wolves"i | "Buck"i | "Stag"i | "Mule"i | "Leopard"i | "Calf"i | "Calves"i | "Greyhound"i
-    | "Griffin"i | "Bear"i | "Dog"i | "Talbot"i  | "Goat"i | "Pig"i | "Bacon Pig"i 
+BEAST:  "Lion"i | "Wolf"i | "Wolves"i | "Leopard"i | "Bear"i 
+        | "Bull"i | "Calf"i | "Calves"i 
+        | "Buck"i | "Stag"i 
+        | "Dog"i  | "Cat"i | "Greyhound"i | "Talbot"i
+        | "Ram"i | "Boar"i | "Goat"i | "Mule"i | "Pig"i | "Bacon Pig"i
+        | "Unicorn"i | "Griffin"i
 BIRD: "Eagle"i | "Martlet"i | "Swan"i | "Raven"i | "Falcon"i | "Popinjay"i | "Cock"i | "Peacock"i | "Bird"i 
-| "Owl"i | "Hawk"i | "Stork"i | "Dove"i
+| "Owl"i | "Hawk"i | "Stork"i | "Dove"i | "Pelican"i | "Moorcock"i
 REPTILE: "Serpent"i | "Firedrake"i | "Salamander"i | "Wyvern"i
-FISH: "Herring"i | "Dolphin"i
-attitude.2: "Rampant"i  // Standing on it's hind legs!
+FISH: "Herring"i | "Dolphin"i  
+      | "Barbel"i       // this is a fish with a mustache
+!attitude.3: "Rampant"i  // Standing on it's hind legs!
         | "Passant"i  // Walking, one upraised arm
         | "Couchant"i // Sitting like a sphinx
         | "Gardant"i | "Guardant"i  // With head facing the viewer
@@ -97,45 +115,59 @@ attitude.2: "Rampant"i  // Standing on it's hind legs!
         | "Dormant"i    // Sleeping
         | "Demi-"i      // only the front half of an animal
         | "Muzzled"i   
+        | "Combatant"i  // Facing eachother
+        | "Addorsed"i  // Facing away from eachother
         | "Tripping"i | "Leaping"i | "Swimming"i
         | "Volant"i    // soaring
-        | "Double-headed"i    
+        | "Double-headed"i          // two headed! coool
         | "Erect"i    
+        | "Reversed"i               // Upside down, like python logo 
+        | "Inverted"i               // Upside down, seems to also be used
+        | "jessant De Lys"i // with a Fleur de Lys issuing out of it 
         | "Displayed"i    
-        | "Pairs of"i 
+        | "Pairs of"i
         | "for difference"i    // essentially a note that this feature distinguishes it from related crests    
         | attitude attitude+
         | attitude AND attitude
         | DIRECTION
         | accessory tincture?
+        | general_attitude 
 
-accessory:  "Crowned"i |  "Erased"i     // Torn off, like demi but ragged    
+!accessory:  "Crowned"i |  "Erased"i | "Collared"i    // Torn off, like demi but ragged    
         |  "Hilted"i | "Pommelled"i
         | "Triple-towered"i | "Domed"i 
+        | "Tounges"i
+        | "Claws"i
+        | "Eyes"i
+        | "Attired"i                // different colored antlers
         |  accessory AND accessory
 
+// attiudes that could apply to any charge
+general_attitude: tincture
+                | "Couped"i             // cut off
 
 
+ordinary_attitude: "Engrailed"i  // Semicircules taken out 
+                    | "Indented"i   // Triangles taken out
+                    | "Embattled"i // Squares taken out (like battlements)
+                    | "Dancetty"i  // Triangles taken out
+                    | "Raguly"i    // Tapezoids taken out 
+                    | "Undy"i | "Wavy"i | "Nebuly"i    // wavey
+                    | "Urdy"i  
+                    | general_attitude
+ORDINARY_PREFIX: "Voided"i
 
-ORDINARY_ATTITUDE: "Engrailed"i  // Semicircules taken out 
-                    |"Indented"i   // Triangles taken out
-                    |"Embattled"i // Squares taken out (like battlements)
-                    |"Dancetty"i  // Triangles taken out
-                    |"Raguly"i    // Tapezoids taken out 
-                    |"Undy"i | "Wavy"i |"Nebuly"i    // wavey
-                    |"Urdy"i  
-ORDINARY_PREFIX: "Voided"
-
-ordinary: (HONOURABLE_ORDINARY | SUBORDINARY | diminutive) "s"? DIRECTION?
-        | (HONOURABLE_ORDINARY | SUBORDINARY | diminutive) "s"? ORDINARY_ATTITUDE? 
+ordinary.2: (HONOURABLE_ORDINARY | SUBORDINARY | diminutive) "s"? DIRECTION?
+        | (HONOURABLE_ORDINARY | SUBORDINARY | diminutive) "s"? ordinary_attitude? 
         | ORDINARY_PREFIX (HONOURABLE_ORDINARY | SUBORDINARY | diminutive) "s"? 
 HONOURABLE_ORDINARY:  "Bend"i                   // Diagonal Stripe
-                    | "Chevron"i |"Cheveron"i   // Check mark
+                    | "Chevron"i | "Cheveron"i   // Check mark
                     | "Chief"i                  // Stripe on top
                     | "Fesse"i | "Fess"i        // Horizontal Stripe
                     | "Pale"i                   // Vertical Stripe
                     | "Saltire"i                // Giant X
                     | "Cross"i                  // Cross
+                    | "Base"i                   // On bottom. Not technically an ordinary but used for division
 
 SUBORDINARY: "Pall"i
             | "Pile"i
@@ -150,70 +182,64 @@ SUBORDINARY: "Pall"i
             | "Label"i
             | "Gyron"i
             | "Tressure"i
+            | "Gore"i    // Looks like a flipping page
+            | "Dance"i   // Wavey line
             | "Lozenge"i | "Fusil"i | "Mascle"i  // variations on diamonds
             | "Roundel"i | "Annulet"i | "Bezant"i | "Hurt"i  // ball or circle
             | "Billet"i    // verticle rectangle
 
 diminutive:  "Pallet"i
         | "Cotised"i | "Cotised"i| "Bendlet"i | "Riband"i | "Ribbon"i | "Scarp"i // Different small bends
-        | "Latin cross"i  | "Cross"i CROSS_ATTITUDE* | "Crosses"i CROSS_ATTITUDE*
+        | "Latin cross"i | "Processional Cross"i
+        | "Cross"i CROSS_ATTITUDE* | "Crosses"i CROSS_ATTITUDE*
 
-CROSS_ATTITUDE.2: "Trefly"i | "Crosslet"i|  "Flory"i | "Fitchy"i  | "Formy"i | "Potent"i | "Paty"i// these guys love crosses      
+CROSS_ATTITUDE.3: "Trefly"i | "Crosslet"i | "of Crosslets"i
+            |  "Flory"i | "Fitchy"i  | "Formy"i | "Potent"i | "Paty"i// these guys love crosses      
 
 DIRECTION: "sinister"i | "dexter"i | "Proper"i | "Upper"i | "Lower"i
 
-object: SHAPE | BUILDING | GEOGRAPHY | PLANT | OBJECT | KNOT "Knot"i
+object.2: SHAPE | BUILDING | GEOGRAPHY | PLANT | OBJECT | KNOT "Knot"i
 SHAPE: "Escarbuncle"i            // radiating star shape
         | "Fasces"i              // bound rods, mayoral symbol. Root of "Fascism"
         | "Key"i                 // Skeleton Key - represents St. Peter and the Church
-        | "Crescent"i  | "Spearhead"i | "Cusion"i
+        | "Crescent"i  | "Spearhead"i | "Cushion"i
         | "Estoil"i  | "Estoiles"i   // Wiggly 6 pointed star
         | "Mullet"i  | "Star"i   // 5 and 6 pointed stars
         | "Canton"i              // Square in upper left that says you are special
         | "Another"i             // Reference to a previous object
-BUILDING: "Tower"i | "Castle"i
+BUILDING: "Tower"i | "Castle"i | "Arch"i | "Arches"i
 GEOGRAPHY: "Mount"i             // Stylized Hill
 PLANT:   "Pomegranate"i | "Rose"i | "Thistle"i | "Acorn"i | "Oak Spring"i
        | "Trefoil"i | "Quatrefoil"i | "Cinquefoil"i // 3 4 and 5 pointed flowers  
        | "Fleur-de-lis"i   | "Fleurs-de-lys"i | "Fleurs-dely"i    // French - Stylized Lily. Boy Scout Symbol
-       | "Garb"i | "Leaves"i        // Sheaf of wheat
-
+       | "Fleur-de-lys"i  
+       | "Garb"i // Sheaf of wheat
+       | "Holly Leaves"i | "Leaves"i 
+       | "Hanks of Cotton"i
 OBJECT:  "Crown"i
         | "Escallop"i          // Scallop Shell - represents the Santiago de Compostela pilgrimage 
         | "Bell"i | "Harp"i | "Trumpet"i 
         | "Mallet"i | "Sword"i | "Battle-axes"i | "Pitchfork"i | "Gauntlet"i | "Helmet"i
         | "Pair Of Wings"i | "Wings"i
         | "Cup"i | "Pheon"i     // Pheon is an arrowhead
+        | "Portcullis"i
         | "Shin-bone"i | "Woolsacks"i
         | "Knot"i | "Ostrich Feather"i | "Antler"i | "Wing"i // Animal parts!
         | "Maunch"i             // A woman's sleeve - like given as a favor at a tournament
         | "Mitre"i              // Bishop Stick
         | "Escutcheon"i         // A shield - for recursive shielding
-KNOT: "Bourchier"i |"Bowen"i |"Cavendish"i |"Dacre"i |"Harrington"i |"Hastings"i |"Heneage"i |"Hinckaert"i |"Hungerford"i |"Lacy"i |"Medici"i |"Morvillier"i |"Ormonde"i |"Savoy"i |"Shakespeare"i |"Stafford"i |"Trafford"i |"Tristram"i |"Wake"i
+
+KNOT: "Bourchier"i | "Bowen"i | "Cavendish"i | "Dacre"i | "Harrington"i | "Hastings"i | "Heneage"i | "Hinckaert"i | "Hungerford"i | "Lacy"i | "Medici"i | "Morvillier"i | "Ormonde"i | "Savoy"i | "Shakespeare"i | "Stafford"i | "Trafford"i | "Tristram"i | "Wake"i
 
 OBJECT_ATTITUDE: "Crossed"i | "Covered"i | "Impaling"i | "Pierced"i | "meeting in base"i | "Paleways"i
                 | "Open"i | "Closed"i | "Conjoined"i
-AND.2: "And"i               // The 2 indicates it's higher priority to avoid colision with "an"
-number: "a double"i | "a triple"i | INT | NUMBER_WORD
-NUMBER_WORD: "an"i
-        | "a"i
-        | "one"i
-        | "two"i
-        | "double"i
-        | "three"i
-        | "four"i
-        | "five"i
-        | "six"i
-        | "seven"i
-        | "eight"i
-        | "nine"i
-        | "ten"i
-        | "eleven"i
-        | "twelve"i
+AND.3: "And"i               // The 2 indicates it's higher priority to avoid colision with "an"
+referenced_name.0: /[A-Z][a-zê]+/            // A reference to another coat of arms 
+                                            // Ex "France impaling England"
+arrangement: number AND number
+            | number ","? number AND number
 
-
-%import common.INT 
-%import common.WORD 
+%import .number (number, INT, NUMBER_WORD)
 WHITESPACE: (" " | "\n")+
 %ignore WHITESPACE
 
