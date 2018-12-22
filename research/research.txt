@@ -131,3 +131,9 @@ https://www.british-history.ac.uk/rchme/cambs/pp397-414
 
 Good source for Charges:
 http://mistholme.com/dictionary/serpent/
+
+Databases:
+https://heraldica.hypotheses.org/1767
+
+
+Python reference grammar! https://docs.python.org/3.8/reference/grammar.htmlgi

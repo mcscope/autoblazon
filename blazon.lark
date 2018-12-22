@@ -1,0 +1,92 @@
+start: arms
+
+arms: field | field "," charge+ | field charge+ | charge+
+
+field: tincture
+
+tincture: METAL| COLOUR | STAIN | fur
+METAL: "Or"i
+    | "Argent"i 
+
+COLOUR: "Azure"i      // Blue
+        | "Gules"i    // Red
+        | "Purpure"i  // Purple
+        | "Sable"i    // Black
+        | "Vert"i     // Green
+
+STAIN:   "Sanguine"i | "Murrey"i // Dark Red
+        | "Tenné"i | "Tenny"i    // Tan/orange
+
+fur: ERMINE | VAIR
+ERMINE: "Ermine"i // Stoat Fur design (black and white spots). 4 variations
+    | "Ermines"i
+    | "Erminois"i
+    | "Pean"i
+
+VAIR: "Vair"i      // Blue and White alternating bell-shaped pattern
+    | "Plumeté"i | "Plumetty"i  // Feather shapes alternating
+    | "Papelonné"i | "Papellony"i // Fan/scale shapes alternating
+    | "Potent"i    // Tetris T's alternating
+    | "Kürsch"i    // Fuzzy squirrel bellies (I am not making this up)
+
+charge: number? ordinary "s"? tincture? 
+    | number? animal tincture?
+    | number? object "s"? tincture?
+    | charge "in" ordinary 
+    // | charge "and" charge 
+
+animal : beast "s"? attitude? | bird "s"? attitude?
+
+beast:  "Lion"i | "Wolf"i | "Buck"i | "Mule"i
+bird: "Eagle"i | "Martlet"i | "Swan"i | "Raven"i
+attitude: "Rampant"i // Standing on it's hind legs!
+        | "Passant"i // Walking, one upraised arm
+        | "Couchant"i // Sitting like a sphinx
+
+
+ordinary: (HONOURABLE_ORDINARY | SUBORDINARY | DIMINUTIVE) "s"? DIRECTION?
+HONOURABLE_ORDINARY:  "Bend"i                   // Diagonal Stripe
+                    | "Chevron"i |"Cheveron"i   // Check mark
+                    | "Chief"i                  // Stripe on top
+                    | "Fesse"i | "Fess"i        // Horizontal Stripe
+                    | "Pale"i                   // Vertical Stripe
+                    | "Saltire"i                // Giant X
+                    | "Cross"i                  // Cross
+
+SUBORDINARY: "Quarter"i 
+            | "Bar"i        // Thin horizontal stripe 
+DIMINUTIVE:  "pallet"
+
+DIRECTION: "sinister"i | "dexter"i
+
+object: SHAPE | BUILDING | GEOGRAPHY | OBJECT
+SHAPE: "Escarbuncle"i            // radiating star shape
+        | "Fasces"i              // bound rods, mayoral symbol. Root of "Fascism"
+        | "Key"i                 // Skeleton Key - represents St. Peter and the Church
+BUILDING: "Tower"i
+GEOGRAPHY: "Mount"i             // Stylized Hill
+OBJECT:  "Crown"i
+        | "Escallop"i          // Scallop Shell - represents the Santiago de Compostela pilgrimage 
+        | "Bell"i
+        | "Harp"i
+        | "Trumpet"i
+
+number: INT | NUMBER_WORD
+NUMBER_WORD: "a"i
+        | "an"i
+        | "one"i
+        | "two"i
+        | "three"i
+        | "four"i
+        | "five"i
+        | "six"i
+        | "seven"i
+        | "eight"i
+        | "nine"i
+        | "ten"i
+
+
+%import common.INT 
+WHITESPACE: (" " | "\n")+
+%ignore WHITESPACE
+

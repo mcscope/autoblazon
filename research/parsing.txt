@@ -5,3 +5,10 @@ https://wiki.python.org/moin/LanguageParsing
 there are at least 38 parser projects for python but likely more
 
 Heraldry is likely a context free language. This can be demonstrated by quartering
+
+
+http://blog.erezsh.com/how-to-write-a-dsl-in-python-with-lark/
+
+
+
+Python reference grammar! https://docs.python.org/3.8/reference/grammar.htmlgi
