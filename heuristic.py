@@ -27,8 +27,8 @@ with open("blazons/cambridge_blazons_only.txt") as cambridge_blazons:
                 new_successes.add(line)
                 # print(line)
             except:
-                if len(line.split()) < 5:
-                    missed.append(f"\t<missed> {line}")
+                # if len(line.split()) < 5:
+                missed.append(f"\t<missed> {line}")
 
 shuffle(missed)
 for l in missed[:50]:
