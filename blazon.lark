@@ -1,9 +1,9 @@
 start: arms
 
-arms: field | field "," _charge_group | field _charge_group | _charge_group
+arms: quartering | field | field "," _charge_group | field _charge_group | _charge_group
 field: tincture 
 _charge_group:  _charge_group AND charge 
-                | _charge_group "between" _charge_group 
+                | _charge_group relation _charge_group 
                 | "on" charge charge 
                 | charge+
 
@@ -20,23 +20,25 @@ COLOUR: "Azure"i      // Blue
 STAIN:   "Sanguine"i | "Murrey"i // Dark Red
         | "Tenné"i | "Tenny"i    // Tan/orange
 
-fur: ERMINE | VAIR
+fur: ERMINE | VAIR | fur tincture AND tincture
 ERMINE: "Ermine"i // Stoat Fur design (black and white spots). 4 variations
     | "Ermines"i
     | "Erminois"i
     | "Pean"i
 
-VAIR: "Vair"i      // Blue and White alternating bell-shaped pattern
+VAIR: "Vairy"i | "Vair"i     // Blue and White alternating bell-shaped pattern
     | "Plumeté"i | "Plumetty"i  // Feather shapes alternating
     | "Papelonné"i | "Papellony"i // Fan/scale shapes alternating
     | "Potent"i    // Tetris T's alternating
     | "Kürsch"i    // Fuzzy squirrel bellies (I am not making this up)
 
 // Variations of the field provide a patterned background. Usually two colors
-variation: multipattern tincture AND tincture | multipattern
+variation: multipattern tincture AND tincture | tincture multipattern tincture | multipattern
 multipattern: PATTERN "of" number 
              | PATTERN 
              | "Semy" charge        // repeating background image, like a myspace page
+quartering: "Quarterly"i ":" (number (AND number)? "," arms ";"?)+ 
+
 PATTERN.2: "Barry"i       // Horizontal stripes.  .2 to avoid conflict Bendy/Bend conflict
         | "Paly"i       // Vertical stripes
         | "Bendy"i      // Diagonal stripes
@@ -48,28 +50,37 @@ PATTERN.2: "Barry"i       // Horizontal stripes.  .2 to avoid conflict Bendy/Ben
         | "Rustré"i     // Variations on diagonal checkerboard pattern
         | "Gyronny"i    // Cool wedge pattern
         | "Quarterly"i  // Divided into 4
+        | "Fretty"i     // Chain-grid design
+        | "Billetty"i   // Covered in Billets
+        | "Flory"i | "Counterflory"i  // Outlined with fleurs pointing in/out
 
-
-
-
-
-charge: number? aspect? ordinary "s"? tincture? 
-    | number? aspect? animal tincture?
-    | number? aspect? object "s"? tincture?
+relation: "Between"i | "Surmounted by"i | "Each with"i | AND "Over all"i
+charge: number? attitude? _charge_focus "s"? attitude? tincture? attitude?
     | charge "in" ordinary 
-    // | charge "and" charge 
 
-animal : beast "s"? attitude? | bird "s"? attitude?
+_charge_focus: object | animal | ordinary
 
-beast:  "Lion"i | "Wolf"i | "Buck"i | "Mule"i | "Leopard"i | "Calf"i | "Calves"i
-bird: "Eagle"i | "Martlet"i | "Swan"i | "Raven"i
-attitude: "Rampant"i // Standing on it's hind legs!
-        | "Passant"i // Walking, one upraised arm
+animal : BEAST | BIRD | REPTILE
+
+BEAST:  "Lion"i | "Wolf"i | "Wolves"i | "Buck"i | "Mule"i | "Leopard"i | "Calf"i | "Calves"i | "Greyhound"i
+    | "Griffin"i | "Bear"i
+BIRD: "Eagle"i | "Martlet"i | "Swan"i | "Raven"i | "Falcon"i | "Popinjay"i
+REPTILE: "Serpent"i | "Firedrake"i | "Salamander"i
+attitude.2: "Rampant"i  // Standing on it's hind legs!
+        | "Passant"i  // Walking, one upraised arm
         | "Couchant"i // Sitting like a sphinx
-
-
-aspect: "Crowned"i       // Can't find the offical heraldic name for these subdescriptions of a charge
-
+        | "Gardant"i | "Guardant"i  // With head facing the viewer
+        | "Regardant"i | "Reguardant"i  // With head facing behind itself
+        | "Coward"i    // Tail between legs
+        | "Running"i 
+        | "Sejant"i   // Seated
+        | "Salient"i   // Leaping
+        | "Dormant"i   // Sleeping
+        | "Demi-"i    // only the front half of an animal
+        | "Crowned"i    
+        | "Erect"i    
+        | "for difference"i    // essentially a note that this feature distinguishes it from related crests    
+        | attitude attitude+
 
 ordinary: (HONOURABLE_ORDINARY | SUBORDINARY | DIMINUTIVE) "s"? DIRECTION?
 HONOURABLE_ORDINARY:  "Bend"i                   // Diagonal Stripe
@@ -80,8 +91,23 @@ HONOURABLE_ORDINARY:  "Bend"i                   // Diagonal Stripe
                     | "Saltire"i                // Giant X
                     | "Cross"i                  // Cross
 
-SUBORDINARY: "Quarter"i 
-            | "Bar"i        // Thin horizontal stripe 
+SUBORDINARY: "Pall"i
+            | "Pile"i
+            | "Pile reversed"i
+            | "Quarter"i
+            | "Canton "i
+            | "Bordure"i
+            | "Orle"i
+            | "Bars"i
+            | "Fret"i
+            | "Flaunches"i
+            | "Label"i
+            | "Gyron"i
+            | "Tressure"i
+            | "Lozenge"i | "Fusil"i | "Mascle"i  // variations on diamonds
+            | "Roundel"i | "Annulet"i | "Bezant"i | "Hurt"i  // ball or circle
+            | "Billet"i    // verticle rectangle
+
 DIMINUTIVE:  "pallet"
 
 DIRECTION: "sinister"i | "dexter"i
@@ -90,25 +116,31 @@ object: SHAPE | BUILDING | GEOGRAPHY | PLANT | OBJECT
 SHAPE: "Escarbuncle"i            // radiating star shape
         | "Fasces"i              // bound rods, mayoral symbol. Root of "Fascism"
         | "Key"i                 // Skeleton Key - represents St. Peter and the Church
-BUILDING: "Tower"i
+        | "Crescent"i  | "Spearhead"i     
+        | "Canton"i              // Square in upper left that says you are special
+        | "Another"i             // Reference to a previous object
+BUILDING: "Tower"i | "Castle"i
 GEOGRAPHY: "Mount"i             // Stylized Hill
 PLANT:   "Pomegranate"i             
        | "Rose"i            
-       | "Trefoil"i            // 3 4 and 5 pointed flowers  
-       | "Quatrefoil"i     
-       | "Cinquefoil"i       
-       | "Fleurs-de-lys"i    // French - Stylized Lily. Boy Scout Symbol
-       | "Fleur-de-lis"i  
-       | "Thistle"i  
+       | "Trefoil"i | "Quatrefoil"i | "Cinquefoil"i // 3 4 and 5 pointed flowers  
+       | "Fleur-de-lis"i   | "Fleurs-de-lys"i    // French - Stylized Lily. Boy Scout Symbol
+       | "Thistle"i | "Acorn"i 
+       | "Garb"i            // Sheaf of wheat
+
 OBJECT:  "Crown"i
         | "Escallop"i          // Scallop Shell - represents the Santiago de Compostela pilgrimage 
-        | "Bell"i
-        | "Harp"i
-        | "Trumpet"i
+        | "Bell"i | "Harp"i | "Trumpet"i 
+        | "Mallet"i | "Axe"i | "Pitchfork"i | "Gauntlets"i
+        | "Cup"i
+        | "Shin-bone"i 
+        | "Knot"i
+        | "Maunch"i             // A woman's sleeve - like given as a favor at a tournament
+        | "Mitre"i              // Bishop Stick
         | "Escutcheon"i         // A shield - for recursive shielding
 
 AND.2: "And"i               // The 2 indicates it's higher priority to avoid colision with "an"
-number: INT | NUMBER_WORD
+number: "a double"i | "a triple"i | INT | NUMBER_WORD
 NUMBER_WORD: "an"i
         | "a"i
         | "one"i
@@ -121,9 +153,12 @@ NUMBER_WORD: "an"i
         | "eight"i
         | "nine"i
         | "ten"i
+        | "eleven"i
+        | "twelve"i
 
 
 %import common.INT 
+%import common.WORD 
 WHITESPACE: (" " | "\n")+
 %ignore WHITESPACE
 

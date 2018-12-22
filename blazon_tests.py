@@ -1,6 +1,6 @@
 from lark import Lark
 
-parser = Lark(open('blazon.lark'), parser="lalr")
+earley_parser = Lark(open('blazon.lark'), parser="earley")
 test_cases = [
     # tinctures
     "azure",
@@ -26,7 +26,16 @@ test_cases = [
     "Gyronny gules and argent, on an escutcheon argent a cinquefoil azure",
     # Aspect
     "A crowned pomegranate",
+    "Three running greyhounds or",
+    "A crowned demi-falcon",
+    "Vairy or and gules",
+    "Sable, a fesse checky argent and azure between three bezants",
+    "Quarterly gules and or, a bend sable",
+    "Or, a fesse azure and over all a bend gules",
+    "Quarterly with a crescent for difference on the fesse point: 1 and 4, Argent, a fesse between six annulets gules; 2 and 3, Morrow",
+    "Quarterly: 1 and 4, Gules, a saltire or surmounted by another vert, a crescent or for difference in chief"
+    # "; 2 and 3, Ermine, two bars sable each with three fusils or"
 ]
 
 for test in test_cases:
-    print(parser.parse("A crowned pomegranate").pretty()),
+    print(earley_parser.parse(test).pretty()),
