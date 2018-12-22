@@ -1,10 +1,13 @@
 start: arms
 
-arms: field | field "," charge+ | field charge+ | charge+
+arms: field | field "," _charge_group | field _charge_group | _charge_group
+field: tincture 
+_charge_group:  _charge_group AND charge 
+                | _charge_group "between" _charge_group 
+                | "on" charge charge 
+                | charge+
 
-field: tincture
-
-tincture: METAL| COLOUR | STAIN | fur
+tincture: METAL| COLOUR | STAIN | fur | variation
 METAL: "Or"i
     | "Argent"i 
 
@@ -29,19 +32,43 @@ VAIR: "Vair"i      // Blue and White alternating bell-shaped pattern
     | "Potent"i    // Tetris T's alternating
     | "Kürsch"i    // Fuzzy squirrel bellies (I am not making this up)
 
-charge: number? ordinary "s"? tincture? 
-    | number? animal tincture?
-    | number? object "s"? tincture?
+// Variations of the field provide a patterned background. Usually two colors
+variation: multipattern tincture AND tincture | multipattern
+multipattern: PATTERN "of" number 
+             | PATTERN 
+             | "Semy" charge        // repeating background image, like a myspace page
+PATTERN.2: "Barry"i       // Horizontal stripes.  .2 to avoid conflict Bendy/Bend conflict
+        | "Paly"i       // Vertical stripes
+        | "Bendy"i      // Diagonal stripes
+        | "Chequy"i     // Checkerboard pattern
+        | "Checky"i     // Checkerboard pattern
+        | "Lozengy"i    // Variations on diagonal checkerboard pattern
+        | "Fusilly"i    // Variations on diagonal checkerboard pattern
+        | "Masculy"i    // Variations on diagonal checkerboard pattern
+        | "Rustré"i     // Variations on diagonal checkerboard pattern
+        | "Gyronny"i    // Cool wedge pattern
+        | "Quarterly"i  // Divided into 4
+
+
+
+
+
+charge: number? aspect? ordinary "s"? tincture? 
+    | number? aspect? animal tincture?
+    | number? aspect? object "s"? tincture?
     | charge "in" ordinary 
     // | charge "and" charge 
 
 animal : beast "s"? attitude? | bird "s"? attitude?
 
-beast:  "Lion"i | "Wolf"i | "Buck"i | "Mule"i
+beast:  "Lion"i | "Wolf"i | "Buck"i | "Mule"i | "Leopard"i | "Calf"i | "Calves"i
 bird: "Eagle"i | "Martlet"i | "Swan"i | "Raven"i
 attitude: "Rampant"i // Standing on it's hind legs!
         | "Passant"i // Walking, one upraised arm
         | "Couchant"i // Sitting like a sphinx
+
+
+aspect: "Crowned"i       // Can't find the offical heraldic name for these subdescriptions of a charge
 
 
 ordinary: (HONOURABLE_ORDINARY | SUBORDINARY | DIMINUTIVE) "s"? DIRECTION?
@@ -59,21 +86,31 @@ DIMINUTIVE:  "pallet"
 
 DIRECTION: "sinister"i | "dexter"i
 
-object: SHAPE | BUILDING | GEOGRAPHY | OBJECT
+object: SHAPE | BUILDING | GEOGRAPHY | PLANT | OBJECT
 SHAPE: "Escarbuncle"i            // radiating star shape
         | "Fasces"i              // bound rods, mayoral symbol. Root of "Fascism"
         | "Key"i                 // Skeleton Key - represents St. Peter and the Church
 BUILDING: "Tower"i
 GEOGRAPHY: "Mount"i             // Stylized Hill
+PLANT:   "Pomegranate"i             
+       | "Rose"i            
+       | "Trefoil"i            // 3 4 and 5 pointed flowers  
+       | "Quatrefoil"i     
+       | "Cinquefoil"i       
+       | "Fleurs-de-lys"i    // French - Stylized Lily. Boy Scout Symbol
+       | "Fleur-de-lis"i  
+       | "Thistle"i  
 OBJECT:  "Crown"i
         | "Escallop"i          // Scallop Shell - represents the Santiago de Compostela pilgrimage 
         | "Bell"i
         | "Harp"i
         | "Trumpet"i
+        | "Escutcheon"i         // A shield - for recursive shielding
 
+AND.2: "And"i               // The 2 indicates it's higher priority to avoid colision with "an"
 number: INT | NUMBER_WORD
-NUMBER_WORD: "a"i
-        | "an"i
+NUMBER_WORD: "an"i
+        | "a"i
         | "one"i
         | "two"i
         | "three"i

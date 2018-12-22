@@ -1,21 +1,32 @@
 from lark import Lark
 
 parser = Lark(open('blazon.lark'), parser="lalr")
+test_cases = [
+    # tinctures
+    "azure",
+    # charges
+    "azure, a bend or",
+    "Azure, bend or",
+    "Azure, bend",
+    "Or, a cheveron gules",
+    # furs
+    "Ermine, bend vair",
+    "Three lions rampant",
+    "Or, a fesse vair",
+    "A bend sinister or",
+    # plural charges
+    "Three Bends ermine",
+    # charges IN charges
+    "Five escallops in saltire",
+    # AND clauses
+    "Sable, a lion argent and a chief gules",
+    # PATTERNED FIELDS
+    "Barry argent and azure",
+    "Bendy azure and or",
+    "Gyronny gules and argent, on an escutcheon argent a cinquefoil azure",
+    # Aspect
+    "A crowned pomegranate",
+]
 
-# tinctures
-print( parser.parse("azure").pretty() )
-# charges
-print( parser.parse("azure, a bend or").pretty() )
-print( parser.parse("Azure, bend or").pretty() )
-print( parser.parse("Azure, bend").pretty() )
-# furs
-print( parser.parse("Ermine, bend vair").pretty() )
-print( parser.parse("Three lions rampant").pretty() )
-print( parser.parse("Or, a fesse vair").pretty() )
-print( parser.parse("A bend sinister or").pretty() )
-# plural charges
-print( parser.parse("Three Bends ermine").pretty() )
-# recursive charges
-print( parser.parse("Five escallops in saltire").pretty() )
-print( parser.parse("Or, a cheveron gules").pretty() )
-
+for test in test_cases:
+    print(parser.parse("A crowned pomegranate").pretty()),
