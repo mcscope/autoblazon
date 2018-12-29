@@ -137,5 +137,39 @@ https://heraldica.hypotheses.org/1767
 
 https://heraldry.sca.org/armory/bruce.html
 
+Could always scrape the SCA for blazons
+http://rolls.westkingdom.org/
 
 Python reference grammar! https://docs.python.org/3.8/reference/grammar.htmlgi
+
+
+
+old page with a database:
+https://web.archive.org/web/20080317182954/http://perso.numericable.fr/~briantimms/era/early%20rolls%20of%20arms.htm
+gotta extract from web archive org
+
+
+https://armorial.library.utoronto.ca/content/british-armorial-bindings
+
+    blazon:str
+    name:str = None
+    century:str = None
+    country:str = None
+    bool has_image bool
+    img_filename:str = None
+    record_from:str = None
+
+
+Rietstap’s Armorial General; it was compiled in the late 19th century by Johan Baptiste Rietstap from the Netherlands, and contains some 130,000 blazons of European Families.
+Burke’s General Armory; a registry of Armorial Bearings for England, Scotland, Ireland and Wales. Sir Bernard Burke, Ulster King of Arms
+Dizionario Storico-blasonico delle famiglie nobilie notabili Italiane; probably the best resource for Italian coats of arms; it was authored by G. B. Di Crollalanza in 1886 and features about 1400 blazons.
+The Encyclopaedia Heraldica, 1828, by William Berry, who was the registering clerk for 15 years, for the College of Arms.
+A Complete Body of Heraldry, Edmondson, Joseph, 1780
+Grosses Wappenbuch, Johann Siebmacher’s (1605); nobility of Bavaria, Austria, Hungary, Croatia, Bukovina, the Baltic states, Alsace, and numerous other kingdoms and principalities on the continent…
+Irish Families-Edward MacLysaght , former Chief Herald of Ireland.
+Irish Arms-by Paul Murtaugh
+La Methode du Blazon-C.F. Menestrier
+Diccionario de Heraldica-J.A. Schnieper, one of our Spanish resources.
+Armorial Lusitano-a Portuguese resource, by Zairol
+Bolton’s American Armory-Charles Knowles Bolton, American Heraldry
+L’Heraldique Napoleonienne-Philippe Lamarque

@@ -8,10 +8,11 @@ field.4: tincture | lines
 _charge_group:  _charge_group AND _charge_group 
                 | _charge_group relation _charge_group 
                 | relation charge charge 
+                | relation charge AND charge 
                 | charge
 
 
-relation: "Between"i | "Surmounted by"i | "Each with"i | AND "Over all"i | "in"i | "on"i
+!relation: "Between"i | "Surmounted by"i | "Each with"i | AND "Over all"i | "in"i | "on"i
         | "Each charged with"i | "charged with"i | "with"i | "all"i | "Quartering"i | "Holding"i
 charge: number? attitude* _charge_focus "s"? attitude*
         | number attitude* _charge_focus "s"? attitude? arrangement 
@@ -29,6 +30,7 @@ COLOUR: "Azure"i      // Blue
         | "Purpure"i  // Purple
         | "Sable"i    // Black
         | "Vert"i     // Green
+        | "Proper"i   // The color a charge ought to be, from nature
 
 STAIN:   "Sanguine"i | "Murrey"i // Dark Red
         | "Tenné"i | "Tenny"i    // Tan/orange
@@ -189,7 +191,7 @@ SUBORDINARY: "Pall"i
             | "Gore"i    // Looks like a flipping page
             | "Dance"i   // Wavey line
             | "Lozenge"i | "Fusil"i | "Mascle"i  // variations on diamonds
-            | "Roundel"i | "Annulet"i | "Bezant"i | "Hurt"i  // ball or circle
+            | "Roundel"i | "Annulet"i | "Bezant"i | "Hurt"i  // ball or circle - variants denote color variations
             | "Billet"i    // verticle rectangle
 
 diminutive:  "Pallet"i
@@ -200,7 +202,7 @@ diminutive:  "Pallet"i
 CROSS_ATTITUDE.3: "Trefly"i | "Crosslet"i | "of Crosslets"i
             |  "Flory"i | "Fitchy"i  | "Formy"i | "Potent"i | "Paty"i// these guys love crosses      
 
-DIRECTION: "sinister"i | "dexter"i | "Proper"i | "Upper"i | "Lower"i
+DIRECTION: "sinister"i | "dexter"i  | "Upper"i | "Lower"i
 
 object.2: SHAPE | BUILDING | GEOGRAPHY | PLANT | OBJECT | KNOT "Knot"i
 SHAPE: "Escarbuncle"i            // radiating star shape

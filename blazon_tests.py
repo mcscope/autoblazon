@@ -85,6 +85,9 @@ test_cases = [
     "Azure, ten estoiles or",
     "Sable semy of cinquefoils, a lion argent",
     "Azure flory, a lion argent",
+    # FROM SCA site!
+    "Argent, on a bend between a mullet and a lozenge sable, an annulet between two roundels argent, on a chief wavy sable a sword argent",
+
     "Sable, two stags combatant argent, collared with coronets and chained and attired or"
     # "Quarterly with a crescent for difference on the fesse point: 1 and 4, Argent, a fesse between six annulets gules; 2 and 3, Morrow",
     # "Quarterly per pale indented or and azure, with an eagle displayed or on the blue, over all on a bend azure a fret between two martlets or"
@@ -93,5 +96,6 @@ test_cases = [
 ]
 
 for test in test_cases:
+    print (test)
     tree = earley_parser.parse(test)
     print(tree.pretty())
