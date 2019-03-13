@@ -1,24 +1,27 @@
 start: arms
 
 arms: field 
-    | field "," _charge_group 
-    | field _charge_group 
-    | _charge_group
+    | field "," charge_group 
+    | field charge_group 
+    | charge_group
 field.4: tincture | lines
-_charge_group:  _charge_group AND _charge_group 
-                | _charge_group relation _charge_group 
+
+charge_group:  charge_group AND charge_group 
+                | charge_group relation subgroup 
                 | relation charge charge 
                 | relation charge AND charge 
+                | charge_group "," relation subgroup
                 | charge
 
-
 !relation: "Between"i | "Surmounted by"i | "Each with"i | AND "Over all"i | "in"i | "on"i
-        | "Each charged with"i | "charged with"i | "with"i | "all"i | "Quartering"i | "Holding"i
-charge: number? attitude* _charge_focus "s"? attitude*
-        | number attitude* _charge_focus "s"? attitude? arrangement 
+        | "Each charged with"i | "charged with"i | "charged of"i | "charged each of" | "with"i | "all"i | "Quartering"i | "Holding"i
+charge: num? attitude* _charge_focus "s"? attitude*
+        | num? attitude* _charge_focus "s"? attitude? ","? arrangement 
+        | _charge_focus
+subgroup: charge_group
 
 // This comes up for liness / lines
-ordinary_charge: number? attitude* ordinary "s"? attitude*
+ordinary_charge: num? attitude* ordinary "s"? attitude*
 
 tincture: METAL| COLOUR | STAIN | fur | variation 
     | "Counterchanged"i  // Split over a differently colored field with color contrasting to each side
@@ -42,7 +45,7 @@ ERMINE: "Ermine"i // Stoat Fur design (black and white spots). 4 variations
     | "Erminois"i
     | "Pean"i
 
-!vair: "Vairy"i | "Vair"i     // Blue and White alternating bell-shaped pattern
+vair: "Vairy"i | "Vair"i     // Blue and White alternating bell-shaped pattern
     | "Plumeté"i | "Plumetty"i  // Feather shapes alternating
     | "Papelonné"i | "Papellony"i // Fan/scale shapes alternating
     | "Potent"i    // Tetris T's alternating
@@ -55,7 +58,9 @@ INFIX_FUR: "Ermined"i
 // Variations of the field provide a patterned background. Usually two colors
 variation: multipattern tincture AND tincture | tincture multipattern tincture? | multipattern
 
-lines: "Quarterly"i ["of"i number] ":" (number (AND number)? "," arms ";"?)+ 
+quarter: (num (AND num)? ","? arms ";"?) COMMENT? ","?
+lines: "Quarterly"i ["of"i num] ":" quarter+
+        | "Quarterly"i ","? quarter+  
             | "Quarterly"? "Per"i ordinary_charge [tincture AND tincture]
             | arms ", on a"i ordinary_charge arms
             | "on a"i ordinary_charge arms
@@ -64,7 +69,7 @@ lines: "Quarterly"i ["of"i number] ":" (number (AND number)? "," arms ";"?)+
             | arms "," ordinary_charge
             | arms "Impaling"i arms
 
-multipattern: PATTERN "of" number [ tincture AND tincture]
+multipattern: PATTERN "of" num [ tincture AND tincture]
              | PATTERN 
              | PATTERN ordinary_attitude
              | tincture "Semy"i "of" charge        // repeating background image, like a myspace page
@@ -82,11 +87,12 @@ PATTERN.3: "Barry"i       // Horizontal stripes.  .3 to avoid conflict Bendy/Ben
         | "Quarterly"i  // Divided into 4
         | "Fretty"i     // Chain-grid design
         | "Billetty"i   // Covered in Billets
+        | "flory-counter-flory"i
         | "Flory"i | "Counterflory"i  // Outlined with fleurs pointing in/out
 
 
 _charge_focus: OBJECT_ATTITUDE? object | animal | ordinary | ordinary "of" charge 
-| referenced_name
+//| referenced_name
 
 
 animal.3 : HUMAN | BEAST | BIRD | REPTILE | FISH| animal "'s"? "s'"? "face" | animal "'s"? "s'"? "head"
@@ -144,6 +150,9 @@ FISH: "Herring"i | "Dolphin"i | "Whale"i
         | "Triple-towered"i | "Domed"i | "Triple-turreted"i // for buidlings
         | "Tounges"i
         | "Claws"i
+        | "armed"i
+        | "langued"i
+        | "stringed"i
         | "Eyes"i
         | "Attired"i                // different colored antlers
         |  accessory AND accessory
@@ -249,10 +258,14 @@ KNOT: "Bourchier"i | "Bowen"i | "Cavendish"i | "Dacre"i | "Harrington"i | "Hasti
 OBJECT_ATTITUDE: "Crossed"i | "Covered"i | "Impaling"i | "Pierced"i | "meeting in base"i | "Paleways"i
                 | "Open"i | "Closed"i | "Conjoined"i
 AND.3: "And"i               // The 2 indicates it's higher priority to avoid colision with "an"
-referenced_name.1: /[A-Z][a-zê]+/            // A reference to another coat of arms 
+//referenced_name.1: /[A-Z][a-zê]+/            // A reference to another coat of arms 
                                             // Ex "France impaling England"
-arrangement: number AND number
-            | number ","? number AND number
+
+arrangement: num AND num
+            | num ","? num AND num
+            | "set in cross"
+!num: number|  NUMBER_WORD | "first" | "second" | "third" | "fourth"
+COMMENT: /\(([^)]+)\)/                            
 
 %import .number (number, INT, NUMBER_WORD)
 WHITESPACE: (" " | "\n")+
