@@ -8,3 +8,5 @@ if not blazon:
     raise Exception("give me a blazon in quotes")
 tree = earley_parser.parse(blazon)
 print(tree.pretty())
+
+

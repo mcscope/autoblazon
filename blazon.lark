@@ -1,16 +1,16 @@
 start: arms
 
-arms: field 
-    | field "," charge_group 
-    | field charge_group 
-    | charge_group
+arms: field "," _charge_group 
+    | field _charge_group 
+    | _charge_group
+    | field 
 field.4: tincture | lines
 
-charge_group:  charge_group AND charge_group 
-                | charge_group relation subgroup 
+_charge_group:  _charge_group AND _charge_group 
+                | _charge_group relation subgroup 
                 | relation charge charge 
                 | relation charge AND charge 
-                | charge_group "," relation subgroup
+                | _charge_group "," relation subgroup
                 | charge
 
 !relation: "Between"i | "Surmounted by"i | "Each with"i | AND "Over all"i | "in"i | "on"i
@@ -18,7 +18,7 @@ charge_group:  charge_group AND charge_group
 charge: num? attitude* _charge_focus "s"? attitude*
         | num? attitude* _charge_focus "s"? attitude? ","? arrangement 
         | _charge_focus
-subgroup: charge_group
+subgroup: _charge_group
 
 // This comes up for liness / lines
 ordinary_charge: num? attitude* ordinary "s"? attitude*
@@ -58,7 +58,8 @@ INFIX_FUR: "Ermined"i
 // Variations of the field provide a patterned background. Usually two colors
 variation: multipattern tincture AND tincture | tincture multipattern tincture? | multipattern
 
-quarter: (num (AND num)? ","? arms ";"?) COMMENT? ","?
+quarter: num (AND num)? "quarter"i arms ";"? COMMENT? ","?
+       | num (AND num)?  arms ";"? COMMENT? ","?
 lines: "Quarterly"i ["of"i num] ":" quarter+
         | "Quarterly"i ","? quarter+  
             | "Quarterly"? "Per"i ordinary_charge [tincture AND tincture]
@@ -71,6 +72,7 @@ lines: "Quarterly"i ["of"i num] ":" quarter+
 
 multipattern: PATTERN "of" num [ tincture AND tincture]
              | PATTERN 
+             | PATTERN tincture
              | PATTERN ordinary_attitude
              | tincture "Semy"i "of" charge        // repeating background image, like a myspace page
 

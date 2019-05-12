@@ -1,0 +1,18 @@
+number.1: "a double"i | "a triple"i | INT | NUMBER_WORD "pieces"i?
+NUMBER_WORD: "an"i
+        | "a"i
+        | "one"i
+        | "two"i
+        | "double"i
+        | "three"i
+        | "four"i
+        | "five"i
+        | "six"i
+        | "seven"i
+        | "eight"i
+        | "nine"i
+        | "ten"i
+        | "eleven"i
+        | "twelve"i
+
+%import common.INT 

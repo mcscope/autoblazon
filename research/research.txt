@@ -147,7 +147,7 @@ Python reference grammar! https://docs.python.org/3.8/reference/grammar.htmlgi
 old page with a database:
 https://web.archive.org/web/20080317182954/http://perso.numericable.fr/~briantimms/era/early%20rolls%20of%20arms.htm
 gotta extract from web archive org
-
+ 
 
 https://armorial.library.utoronto.ca/content/british-armorial-bindings
 
@@ -173,3 +173,7 @@ Diccionario de Heraldica-J.A. Schnieper, one of our Spanish resources.
 Armorial Lusitano-a Portuguese resource, by Zairol
 Bolton’s American Armory-Charles Knowles Bolton, American Heraldry
 L’Heraldique Napoleonienne-Philippe Lamarque
+
+
+Guide to drawing:
+https://en.wikisource.org/wiki/A_Complete_Guide_to_Heraldry/Chapter_9m
